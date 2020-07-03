@@ -1,0 +1,35 @@
+#Name of the application
+spring:
+  application:
+    name: saree-gateway
+##This is a eureka server so no need to register
+#eureka:
+#  client:
+#    register-with-eureka: false
+#    #This is a eureka server no need to fetch registry
+#    fetch-registry: false
+#    #Register url for client
+#    service-url.defaultZone: http://saree-gateway-service:80/eureka
+#  #timeout
+#  server:
+#    wait-time-in-ms-when-sync-empty: 0
+##All url come with prefix/api will interpret
+##zuul.prefix=/api
+
+zuul:
+  routes:
+    customer:
+      path: /v1/customer/**
+      url: http://saree-app-service:8080/v1/customer
+    transaction:
+      path: /v1/transaction/**
+      url: http://saree-app-service:8080/v1/transaction
+server:
+  port: 9290
+
+
+ribbon:
+  eureka:
+    enabled: false
+jwt:
+  secret: saree-mnb
